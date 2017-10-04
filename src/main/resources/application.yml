@@ -3,12 +3,9 @@ spring:
     name: heimdall
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: heimdall
+      uri: mongodb://heimdall-demo-mongo/heimdall 
 server:
   port: 9001
-
 logging:
   level:
     root: error

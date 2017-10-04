@@ -1,4 +1,17 @@
 language: java
+install: true
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker network create heimdall_network
+  - docker run --name heimdall-demo-mongo --network=heimdall_network -d mongo
+  - docker build --tag=heimdall-demo .
+  - docker run -d --name heimdall-demo --network=heimdall_network heimdall-demo
+  - docker ps -a
+
 jdk:
   - oraclejdk8
 os:
@@ -9,3 +22,6 @@ branches:
 cache:
   directories:
     - $HOME/.gradle
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
