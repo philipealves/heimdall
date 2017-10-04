@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: heimdall
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: heimdall
+server:
+  port: 9001
+
+logging:
+  level:
+    root: error
+    org.springframework.data: debug
