@@ -8,8 +8,6 @@ services:
 before_install:
   - docker network create heimdall_network
   - docker run --name heimdall-demo-mongo --network=heimdall_network -d mongo
-  - docker build --tag=heimdall-demo .
-  - docker run -d --name heimdall-demo --network=heimdall_network heimdall-demo
   - docker ps -a
 
 jdk:
