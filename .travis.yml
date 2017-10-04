@@ -21,9 +21,6 @@ before_deploy: "echo 'ready to deploy?'"
 
 deploy:
   provider: azure_web_apps
-  username: AZURE_WA_USERNAME   # If AZURE_WA_USERNAME isn't set
-  password: AZURE_WA_PASSWORD   # If AZURE_WA_PASSWORD isn't set
-  site: AZURE_WA_SITE           # If AZURE_WA_SITE isn't set
   verbose: true
 
 after_success:
