@@ -1,12 +1,29 @@
 spring:
   application:
     name: heimdall
-  data:
-    mongodb:
-      uri: mongodb://heimdall-demo-mongo/heimdall 
+  profiles:
+    active: local
 server:
   port: 9001
 logging:
   level:
-    root: error
+    root: erro
     org.springframework.data: debug
+    
+---
+
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      uri: mongodb://heimdall-demo-mongo/heimdall
+      
+---
+
+spring:
+  profiles: local
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: heimdall
