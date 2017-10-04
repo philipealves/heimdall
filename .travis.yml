@@ -1,0 +1,27 @@
+language: java
+install: true
+sudo: required
+
+jdk:
+  - oraclejdk8
+os:
+  - linux
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - $HOME/.gradle
+
+script:
+  - ./gradlew check
+  - ./gradlew jacocoTestReport
+
+before_deploy: "echo 'ready to deploy?'"
+
+deploy:
+  provider: azure_web_apps
+  verbose: true
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
