@@ -28,23 +28,15 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
 		try {
-
-			/* consulta o usuario pelo e-mail */
 			UserResponse user = this.usuarioService.findByUsername(username);
 			if (user != null) {
 				if (user.isEnabled()) {
-
-					/* recupera as permissoes de acesso do usuario */
 					List<GrantedAuthority> authorities = getAuthorities(user);
 					return new LoggedUser(user, authorities);
 
 				} else {
-
-					/* usuario inativo */
 					throw new AuthenticationServiceException("Usuário inativo.");
-
 				}
 			}
 
@@ -53,17 +45,9 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 		} catch (Exception e) {
 			log.error("Falha ao realizar login", e);
 		}
-
 		throw new UsernameNotFoundException("Usuário não encontrado");
-
 	}
 
-	/**
-	 * Consulta as permissoes do usuario informado como parametro.
-	 * 
-	 * @param user
-	 * @return {@link List}
-	 */
 	private List<GrantedAuthority> getAuthorities(UserResponse user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ADMIN"));
