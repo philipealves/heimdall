@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HeimdallApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HeimdallApplicationTest.class, args);
+		SpringApplication.run(HeimdallApplication.class, args);
 	}
 }
