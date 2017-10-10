@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserResponse save(UserRequest request) {
 		if (StringUtils.isBlank(request.getPassword())) {
-			throw new InvalidParameterException();
+			throw new InvalidParameterException("msg.constraint.user.password.null");
 		}
 		User user = buildFromRequest(request);
 		user.setPassword(cripto(user.getPassword()));
