@@ -32,8 +32,10 @@ dependencies {
 	compile('io.jsonwebtoken:jjwt:0.7.0')
 	compile('org.apache.commons:commons-lang3:3.4')
 	compile('org.apache.commons:commons-collections4:4.1')
+	compile('br.com.six2six:fixture-factory:3.1.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
+	testCompile('com.github.fakemongo:fongo:2.1.0')
 }
 
 jacocoTestReport {
