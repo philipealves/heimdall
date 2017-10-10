@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.github.philipealves.heimdall.auth.LoggedUser;
-import com.github.philipealves.heimdall.model.User;
+import com.github.philipealves.heimdall.response.UserResponse;
 import com.github.philipealves.heimdall.service.UserService;
 
 @Component
@@ -32,21 +32,21 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 		try {
 
 			/* consulta o usuario pelo e-mail */
-			User user = this.usuarioService.findByUsername(username);
+			UserResponse user = this.usuarioService.findByUsername(username);
 			if (user != null) {
-                if (user.isEnabled()) {
+				if (user.isEnabled()) {
 
-                	/* recupera as permissoes de acesso do usuario */
-    				List<GrantedAuthority> authorities = getAuthorities(user);
-    				return new LoggedUser(user, authorities);
+					/* recupera as permissoes de acesso do usuario */
+					List<GrantedAuthority> authorities = getAuthorities(user);
+					return new LoggedUser(user, authorities);
 
-                } else {
+				} else {
 
-                    /* usuario inativo */
-                    throw new AuthenticationServiceException("Usuário inativo.");
+					/* usuario inativo */
+					throw new AuthenticationServiceException("Usuário inativo.");
 
-                }
-            }
+				}
+			}
 
 		} catch (AuthenticationServiceException e) {
 			throw e;
@@ -64,7 +64,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 	 * @param user
 	 * @return {@link List}
 	 */
-	private List<GrantedAuthority> getAuthorities(User user) {
+	private List<GrantedAuthority> getAuthorities(UserResponse user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ADMIN"));
 		return authorities;

@@ -5,6 +5,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.github.philipealves.heimdall.response.UserResponse;
+
 public class LoggedUser extends User {
 
 	private static final long serialVersionUID = 1186233186547816504L;
@@ -13,8 +15,7 @@ public class LoggedUser extends User {
 	private String email;
 	private boolean enabled;
 
-	public LoggedUser(com.github.philipealves.heimdall.model.User user,
-			Collection<? extends GrantedAuthority> authorities) {
+	public LoggedUser(UserResponse user, Collection<? extends GrantedAuthority> authorities) {
 		super(user.getEmail(), user.getPassword(), authorities);
 		this.name = user.getName();
 		this.email = user.getEmail();

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.philipealves.heimdall.model.User;
+import com.github.philipealves.heimdall.request.UserRequest;
+import com.github.philipealves.heimdall.response.UserResponse;
 import com.github.philipealves.heimdall.service.UserService;
 import com.github.philipealves.heimdall.utils.HeimdallResponse;
 import com.github.philipealves.heimdall.utils.ResponseCode;
@@ -22,9 +23,9 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public HeimdallResponse<User> saveUser(@RequestBody User user) {
+	public HeimdallResponse<UserResponse> saveUser(@RequestBody UserRequest user) {
 		try {
-			return new HeimdallResponse<User>(this.userService.save(user), ResponseCode.SUCCESS.getCode(),
+			return new HeimdallResponse<>(this.userService.save(user), ResponseCode.SUCCESS.getCode(),
 					ResponseCode.SUCCESS.getMessage());
 		} catch (Exception e) {
 			return new HeimdallResponse<>(ResponseCode.ERROR.getCode(), e.getMessage());
@@ -32,9 +33,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
-	public HeimdallResponse<User> getUser(@PathVariable("username") String username) {
+	public HeimdallResponse<UserResponse> getUser(@PathVariable("username") String username) {
 		try {
-			return new HeimdallResponse<User>(this.userService.findByUsername(username), ResponseCode.SUCCESS.getCode(),
+			return new HeimdallResponse<>(this.userService.findByUsername(username), ResponseCode.SUCCESS.getCode(),
 					ResponseCode.SUCCESS.getMessage());
 		} catch (Exception e) {
 			return new HeimdallResponse<>(ResponseCode.ERROR.getCode(), e.getMessage());
@@ -42,7 +43,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public HeimdallResponse<List<User>> getUsers() {
+	public HeimdallResponse<List<UserResponse>> getUsers() {
 		try {
 			return new HeimdallResponse<>(this.userService.findAll(), ResponseCode.SUCCESS.getCode(),
 					ResponseCode.SUCCESS.getMessage());

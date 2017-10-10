@@ -2,14 +2,15 @@ package com.github.philipealves.heimdall.service;
 
 import java.util.List;
 
-import com.github.philipealves.heimdall.model.User;
+import com.github.philipealves.heimdall.request.UserRequest;
+import com.github.philipealves.heimdall.response.UserResponse;
 
 public interface UserService {
 
-	User save(User user);
+	UserResponse save(UserRequest user);
 
-	User findByUsername(String username);
+	UserResponse findByUsername(String username);
 
-	List<User> findAll();
+	List<UserResponse> findAll();
 
 }
