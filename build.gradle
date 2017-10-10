@@ -24,7 +24,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-security')
@@ -46,3 +45,5 @@ jacocoTestReport {
         html.destination "$project.buildDir/outputs/jacoco/"
     }
 }
+
+check.dependsOn jacocoTestReport

@@ -14,8 +14,7 @@ cache:
     - $HOME/.gradle
 
 script:
-  - ./gradlew check
-  - ./gradlew jacocoTestReport
+  - ./gradlew check jacocoTestReport
 
 before_deploy: "echo 'ready to deploy?'"
 
