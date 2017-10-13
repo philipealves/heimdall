@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class UserControllerTest {
 	@Before
 	public void setUp() {
 		FixtureFactoryLoader.loadTemplates(UserTemplate.class.getPackage().getName());
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).apply(springSecurity()).build();
 		MockitoAnnotations.initMocks(this);
 	}
 
@@ -72,6 +74,7 @@ public class UserControllerTest {
 								.perform(MockMvcRequestBuilders.post(URL)
 								.contentType(MediaType.APPLICATION_JSON_UTF8)
 								.accept(MediaType.APPLICATION_JSON_UTF8)
+								.with(user("user"))
 								.content(new Gson().toJson(request))).andReturn();
 
 		int status = result.getResponse().getStatus();
@@ -95,6 +98,7 @@ public class UserControllerTest {
 								.perform(MockMvcRequestBuilders.post(URL)
 								.contentType(MediaType.APPLICATION_JSON_UTF8)
 								.accept(MediaType.APPLICATION_JSON_UTF8)
+								.with(user("user"))
 								.content(new Gson().toJson(request))).andReturn();
 
 		int status = result.getResponse().getStatus();
@@ -116,7 +120,9 @@ public class UserControllerTest {
 
 		MvcResult result = mockMvc
 								.perform(MockMvcRequestBuilders.get(URL + "/" + response.getUsername())
-								.accept(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+								.with(user("user"))
+								.accept(MediaType.APPLICATION_JSON_UTF8))
+								.andReturn();
 
 		int status = result.getResponse().getStatus();
 		assertEquals(HttpStatus.OK.value(), status);
@@ -136,7 +142,8 @@ public class UserControllerTest {
 
 		MvcResult result = mockMvc
 								.perform(MockMvcRequestBuilders.get(URL + RandomStringUtils.randomAlphanumeric(10))
-								.accept(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+								.with(user("user")).accept(MediaType.APPLICATION_JSON_UTF8))
+								.andReturn();
 
 		int status = result.getResponse().getStatus();
 		assertEquals(HttpStatus.OK.value(), status);
@@ -155,8 +162,10 @@ public class UserControllerTest {
 		List<UserResponse> users = Fixture.from(UserResponse.class).gimme(50, UserResponseTemplate.NEW);
 		Mockito.when(userService.findAll()).thenReturn(users);
 
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(URL).accept(MediaType.APPLICATION_JSON_UTF8))
-				.andReturn();
+		MvcResult result = mockMvc
+								.perform(MockMvcRequestBuilders.get(URL).accept(MediaType.APPLICATION_JSON_UTF8)
+								.with(user("user")))
+								.andReturn();
 
 		int status = result.getResponse().getStatus();
 		assertEquals(HttpStatus.OK.value(), status);
@@ -174,7 +183,7 @@ public class UserControllerTest {
 	public void getAllUsersFail() throws Exception {
 		Mockito.when(userService.findAll()).thenThrow(new Exception());
 
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(URL).accept(MediaType.APPLICATION_JSON_UTF8))
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(URL).accept(MediaType.APPLICATION_JSON_UTF8).with(user("user")))
 				.andReturn();
 
 		int status = result.getResponse().getStatus();
