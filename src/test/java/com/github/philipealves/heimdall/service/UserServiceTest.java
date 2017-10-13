@@ -73,7 +73,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testPassword_null() throws Exception {
+	public void testPasswordNull() throws Exception {
 		try {
 			User user = new User(RandomStringUtils.randomAlphanumeric(10), "username", "name", "email@email.com",
 					"password", Boolean.TRUE);
