@@ -1,5 +1,6 @@
 package com.github.philipealves.heimdall.data;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,9 +39,9 @@ public class UserRepositoryTest {
 		Assert.assertEquals(dev1.hashCode(), dev2.hashCode());
 		Assert.assertEquals(dev1, dev1);
 		Assert.assertNotEquals(dev1, null);
-		Assert.assertNotEquals(dev1, new String());
+		Assert.assertNotEquals(dev1, StringUtils.EMPTY);
 		Assert.assertEquals(dev1, dev2);
-		dev1.setUsername(new String("newUsername"));
+		dev1.setUsername("newUsername");
 		Assert.assertNotEquals(dev1, dev2);
 		dev1.setUsername(null);
 		Assert.assertNotEquals(dev1, dev2);
