@@ -15,37 +15,31 @@ public class UserTemplate implements TemplateLoader {
 	@Override
 	public void load() {
 
-		Fixture.of(User.class).addTemplate(NEW, new Rule() {
-			{
+		Fixture.of(User.class).addTemplate(NEW, new Rule() {{
 				add("id", null);
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
-			}
-		});
+		}});
 
-		Fixture.of(User.class).addTemplate(NEW_WITH_ID, new Rule() {
-			{
+		Fixture.of(User.class).addTemplate(NEW_WITH_ID, new Rule() {{
 				add("id", regex("[a-z0-9]\\w{3,14}"));
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
-			}
-		});
+		}});
 
-		Fixture.of(User.class).addTemplate(NEW_INACTIVE, new Rule() {
-			{
+		Fixture.of(User.class).addTemplate(NEW_INACTIVE, new Rule() {{
 				add("id", regex("[a-z0-9]\\w{3,14}"));
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
-			}
-		});
+		}});
 	}
 }

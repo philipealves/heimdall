@@ -15,22 +15,18 @@ public class UserRequestTemplate implements TemplateLoader {
 	@Override
 	public void load() {
 
-		Fixture.of(UserRequest.class).addTemplate(NEW, new Rule() {
-			{
+		Fixture.of(UserRequest.class).addTemplate(NEW, new Rule() {{
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
-			}
-		});
+		}});
 
-		Fixture.of(UserRequest.class).addTemplate(NEW_INACTIVE, new Rule() {
-			{
+		Fixture.of(UserRequest.class).addTemplate(NEW_INACTIVE, new Rule() {{
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
-			}
-		});
+		}});
 	}
 }

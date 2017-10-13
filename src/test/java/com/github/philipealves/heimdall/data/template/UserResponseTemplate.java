@@ -15,24 +15,20 @@ public class UserResponseTemplate implements TemplateLoader {
 	@Override
 	public void load() {
 
-		Fixture.of(UserResponse.class).addTemplate(NEW, new Rule() {
-			{
+		Fixture.of(UserResponse.class).addTemplate(NEW, new Rule() {{
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", random(Boolean.TRUE, Boolean.FALSE));
-			}
-		});
+		}});
 
-		Fixture.of(UserResponse.class).addTemplate(NEW_INACTIVE, new Rule() {
-			{
+		Fixture.of(UserResponse.class).addTemplate(NEW_INACTIVE, new Rule() {{
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
 				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
-			}
-		});
+		}});
 	}
 }
