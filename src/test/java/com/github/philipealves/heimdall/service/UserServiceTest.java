@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.verify;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
@@ -64,12 +65,14 @@ public class UserServiceTest {
 
 		UserResponse userResponse = this.userService.save(userRequest);
 		assertNotNull(userResponse);
+		verify(userRepository).save(Mockito.any(User.class));
 
 		UserResponse testUser = this.userService.findByUsername("username");
 		assertEquals(testUser, userResponse);
 
 		List<UserResponse> testList = this.userService.findAll();
 		assertThat(testList, not(IsEmptyCollection.empty()));
+		verify(userRepository).findAll();
 	}
 
 	@Test
