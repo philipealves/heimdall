@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	private BCryptPasswordEncoder encoder;
 
 	@Override
-	public UserResponse save(UserRequest request) {
+	public UserResponse save(UserRequest request) throws Exception {
 		if (StringUtils.isBlank(request.getPassword())) {
 			throw new InvalidParameterException("msg.constraint.user.password.null");
 		}
@@ -36,12 +36,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse findByUsername(String username) {
+	public UserResponse findByUsername(String username) throws Exception {
 		return buildResponse(this.userRepository.findByUsername(username));
 	}
 
 	@Override
-	public List<UserResponse> findAll() {
+	public List<UserResponse> findAll() throws Exception {
 		return buildResponse(this.userRepository.findAll());
 	}
 
