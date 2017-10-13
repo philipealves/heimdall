@@ -1,6 +1,7 @@
 package com.github.philipealves.heimdall.service;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Assert;
 import org.junit.Before;
@@ -57,6 +57,7 @@ public class UserServiceTest {
 		Mockito.when(this.userRepository.save(Mockito.any(User.class))).thenReturn(user);
 		Mockito.when(this.userRepository.findByUsername(Mockito.any(String.class))).thenReturn(user);
 		Mockito.when(this.userRepository.findAll()).thenReturn(Arrays.asList(user));
+		Mockito.when(this.encoder.encode(Mockito.anyString())).thenReturn(user.getPassword());
 
 		UserRequest userRequest = new UserRequest("username", "name", "email@email.com", "password");
 		assertNotNull(userRequest);
@@ -85,7 +86,7 @@ public class UserServiceTest {
 			fail();
 		} catch (InvalidParameterException e) {
 			String msg = "msg.constraint.user.password.null";
-			Assert.assertThat(e.getMessage(), CoreMatchers.containsString(msg));
+			Assert.assertThat(e.getMessage(), containsString(msg));
 		}
 	}
 }

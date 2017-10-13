@@ -21,7 +21,7 @@ public class UserTemplate implements TemplateLoader {
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
-				add("password", regex("^[a-zA-Z]\\w{3,14}$"));
+				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
 			}
 		});
@@ -32,7 +32,7 @@ public class UserTemplate implements TemplateLoader {
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
-				add("password", regex("^[a-zA-Z]\\w{3,14}$"));
+				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
 			}
 		});
@@ -43,7 +43,7 @@ public class UserTemplate implements TemplateLoader {
 				add("name", name());
 				add("username", "${name}");
 				add("email", "${name}@nextcar.com.br");
-				add("password", regex("^[a-zA-Z]\\w{3,14}$"));
+				add("password", regex("[a-zA-Z]\\w{3,14}"));
 				add("enabled", Boolean.TRUE);
 			}
 		});
